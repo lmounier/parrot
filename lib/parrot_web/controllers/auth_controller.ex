@@ -20,12 +20,14 @@ defmodule ParrotWeb.AuthController do
   end
 
   def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
+    IO.inspect("ntr")
     conn
     |> put_flash(:error, "Failed to authenticate.")
     |> redirect(to: "/")
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
+    IO.inspect("nsm")
     case UserFromAuth.find_or_create(auth) do
       {:ok, user} ->
         conn

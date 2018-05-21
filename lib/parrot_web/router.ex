@@ -14,7 +14,7 @@ defmodule ParrotWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/auth", Parrot do
+  scope "/auth", ParrotWeb do
     pipe_through :browser
 
     get "/:provider", AuthController, :request
