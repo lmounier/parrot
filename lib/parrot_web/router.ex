@@ -2,6 +2,7 @@ defmodule ParrotWeb.Router do
   use ParrotWeb, :router
 
   pipeline :browser do
+    plug Ueberauth
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
@@ -11,6 +12,13 @@ defmodule ParrotWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  scope "/auth", Parrot do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
   end
 
   scope "/", ParrotWeb do
