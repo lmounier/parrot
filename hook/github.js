@@ -1,8 +1,11 @@
 const models = require("./models");
 const db = require("./db");
 const { mapGithubAccountToUserId } = require("./utils/users");
+const zenhubFetch = require("./utils/zenhub");
 
 const githubHook = ({ action, issue }) => {
+  let haveMatch = true;
+
   switch (action) {
     case "opened": {
       const { number, title, assignee, html_url } = issue;
@@ -21,7 +24,7 @@ const githubHook = ({ action, issue }) => {
     }
 
     case "assigned": {
-      const { number, title, assignee, html_url } = issue;
+      const { number, assignee } = issue;
       const userId = mapGithubAccountToUserId(assignee.login);
 
       models.Task.update(
@@ -38,7 +41,24 @@ const githubHook = ({ action, issue }) => {
     }
 
     default:
+      haveMatch = false;
       break;
+  }
+
+  if (haveMatch) {
+    const { number } = issue;
+    zenhubFetch(`/issues/${number}`).then(({ data }) => {
+      models.Task.update(
+        {
+          user_id: userId
+        },
+        {
+          where: {
+            number: number
+          }
+        }
+      );
+    });
   }
 };
 

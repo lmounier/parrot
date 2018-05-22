@@ -8,25 +8,31 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
-        type: Sequelize.INTEGER
-      },
-      user_story_id: {
-        type: Sequelize.INTEGER
-      },
-      name: {
+      libelle: {
         type: Sequelize.STRING
       },
-      complexity: {
+      pc: {
+        type: Sequelize.INTEGER
+      },
+      id_us: {
+        type: Sequelize.INTEGER
+      },
+      id_sprint: {
         type: Sequelize.INTEGER
       },
       url: {
         type: Sequelize.STRING
       },
-      number: {
+      id_type_tache: {
         type: Sequelize.INTEGER
       },
-      sprint_id: {
+      id_utilisateur: {
+        type: Sequelize.INTEGER
+      },
+      status: {
+        type: Sequelize.STRING
+      },
+      numero: {
         type: Sequelize.INTEGER
       },
       createdAt: {
