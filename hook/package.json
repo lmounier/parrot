@@ -3,7 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
   "dependencies": {
+    "body-parser": "1.18.3",
+    "express": "4.16.3",
     "sequelize": "4.37.8"
+  },
+  "devDependencies": {
+    "nodemon": "1.17.4"
   }
 }
