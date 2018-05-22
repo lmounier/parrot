@@ -1,12 +1,15 @@
-const db = require("./db");
+const task = require("./models/task");
 
-db
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch(err => {
-    console.error("Unable to connect to the database:", err);
-  });
+const githubHook = ({ action, issue }) => {
+  switch (action) {
+    case "opened":
+      const { number, title } = issue;
+      console.log(title);
+      break;
 
-module.exports = () => console.log("Github");
+    default:
+      break;
+  }
+};
+
+module.exports = githubHook;

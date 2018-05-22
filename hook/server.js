@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post("/github", (req, res) => {
-  github(req);
+  github(req.body);
   res.send(200);
 });
 
