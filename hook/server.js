@@ -1,6 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+const github = require("./github");
+const zenhub = require("./zenhub");
+
 const PORT = 8080;
 
 const app = express();
@@ -9,13 +12,13 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post("/github", (req, res) => {
-  console.dir(req.body);
-  res.send("Hello");
+  github(req);
+  res.send(200);
 });
 
 app.post("/zenhub", (req, res) => {
-  console.dir(req.body);
-  res.send("Hello");
+  zenhub(req);
+  res.send(200);
 });
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
