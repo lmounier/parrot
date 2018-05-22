@@ -12,13 +12,15 @@ const githubHook = ({ action, issue }) => {
       const userId = mapGithubAccountToUserId(assignee.login);
 
       models.Task.create({
-        user_id: userId,
-        user_story_id: null,
-        sprint_id: null,
-        name: title,
-        complexity: null,
+        libelle: title,
+        pc: null,
+        id_us: null,
+        id_sprint: null,
         url: html_url,
-        number: number
+        id_type_tache: null,
+        id_utilisateur: userId,
+        status: null,
+        numero: number
       });
       break;
     }
@@ -29,11 +31,11 @@ const githubHook = ({ action, issue }) => {
 
       models.Task.update(
         {
-          user_id: userId
+          id_utilisateur: userId
         },
         {
           where: {
-            number: number
+            numero: number
           }
         }
       );
@@ -45,21 +47,19 @@ const githubHook = ({ action, issue }) => {
       break;
   }
 
-  if (haveMatch) {
-    const { number } = issue;
-    zenhubFetch(`/issues/${number}`).then(({ data }) => {
-      models.Task.update(
-        {
-          user_id: userId
-        },
-        {
-          where: {
-            number: number
-          }
-        }
-      );
-    });
-  }
+  //   if (haveMatch) {
+  //     const { number } = issue;
+  //     zenhubFetch(`/issues/${number}`).then(({ data }) => {
+  //       models.Task.update(
+  //         {},
+  //         {
+  //           where: {
+  //             number: number
+  //           }
+  //         }
+  //       );
+  //     });
+  //   }
 };
 
 module.exports = githubHook;
