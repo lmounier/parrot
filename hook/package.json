@@ -16,6 +16,7 @@
     "sqlite3": "4.0.0"
   },
   "devDependencies": {
-    "nodemon": "1.17.4"
+    "nodemon": "1.17.4",
+    "sequelize-cli": "4.0.0"
   }
 }
