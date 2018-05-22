@@ -1,18 +1,6 @@
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("database", "username", "password", {
-  host: "localhost",
-  dialect: "sqlite",
-  operatorsAliases: false,
-
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
-
-  // SQLite only
-  storage: "db/database.sqlite"
-});
+const sequelize = new Sequelize(
+  "postgres://postgres:postgres@54.37.158.186:5432/parrot_hook"
+);
 
 module.exports = sequelize;
