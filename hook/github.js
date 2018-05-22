@@ -4,9 +4,8 @@ const { mapGithubAccountToUserId } = require("./utils/users");
 
 const githubHook = ({ action, issue }) => {
   switch (action) {
-    case "opened":
+    case "opened": {
       const { number, title, assignee, html_url } = issue;
-
       const userId = mapGithubAccountToUserId(assignee.login);
 
       models.Task.create({
@@ -14,12 +13,28 @@ const githubHook = ({ action, issue }) => {
         user_story_id: null,
         name: title,
         complexity: null,
-        url: html_url
+        url: html_url,
+        number: number
       });
       break;
+    }
 
-    case "assigned":
+    case "assigned": {
+      const { number, title, assignee, html_url } = issue;
+      const userId = mapGithubAccountToUserId(assignee.login);
+
+      models.Task.update(
+        {
+          user_id: userId
+        },
+        {
+          where: {
+            number: number
+          }
+        }
+      );
       break;
+    }
 
     default:
       break;
