@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize("database", "username", "password", {
   host: "localhost",
-  dialect: "mysql" | "sqlite",
+  dialect: "sqlite",
   operatorsAliases: false,
 
   pool: {
@@ -14,3 +14,5 @@ const sequelize = new Sequelize("database", "username", "password", {
   // SQLite only
   storage: "db/database.sqlite"
 });
+
+module.exports = sequelize;
