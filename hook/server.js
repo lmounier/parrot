@@ -22,3 +22,9 @@ app.post("/zenhub", (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+
+const fetch = require("./utils/zenhub");
+
+fetch.get("/issues/123").then(({ data }) => {
+  console.log(data);
+});
