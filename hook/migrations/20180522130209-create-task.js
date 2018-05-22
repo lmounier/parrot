@@ -23,6 +23,12 @@ module.exports = {
       url: {
         type: Sequelize.STRING
       },
+      number: {
+        type: Sequelize.INTEGER
+      },
+      sprint_id: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

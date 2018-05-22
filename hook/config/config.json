@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "postgres",
-    "database": "parrot_hook",
+    "database": "parrot_hook2",
     "host": "54.37.158.186",
     "dialect": "postgres"
   },

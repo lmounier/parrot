@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     user_story_id: DataTypes.INTEGER,
     name: DataTypes.STRING,
     complexity: DataTypes.INTEGER,
-    url: DataTypes.STRING
+    url: DataTypes.STRING,
+    number: DataTypes.INTEGER,
+    sprint_id: DataTypes.INTEGER
   }, {});
   Task.associate = function(models) {
     // associations can be defined here
