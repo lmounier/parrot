@@ -2,5 +2,8 @@
   "name": "hook",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "sequelize": "4.37.8"
+  }
 }
