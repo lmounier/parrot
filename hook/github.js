@@ -11,6 +11,7 @@ const githubHook = ({ action, issue }) => {
       models.Task.create({
         user_id: userId,
         user_story_id: null,
+        sprint_id: null,
         name: title,
         complexity: null,
         url: html_url,
