@@ -16,9 +16,4 @@ app.post("/github", (req, res) => {
   res.sendStatus(200);
 });
 
-app.post("/zenhub", (req, res) => {
-  zenhub(req);
-  res.sendStatus(200);
-});
-
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));

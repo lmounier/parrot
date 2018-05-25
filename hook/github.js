@@ -44,8 +44,12 @@ const githubHook = ({ action, issue, comment }) => {
     }
 
     case "created": {
-      const { number, title, assignee, html_url } = issue;
-      const userId = mapGithubAccountToUserId(assignee.login);
+      const { number, title, assignees, html_url } = issue;
+      const usersId = assignees.map(assignee => {
+        mapGithubAccountToUserId(assignee.login);
+      });
+
+      console.log(usersId);
 
       if (comment.body.includes("parrot")) {
         models.Task.findAll({
@@ -61,7 +65,7 @@ const githubHook = ({ action, issue, comment }) => {
               id_sprint: null,
               url: html_url,
               id_type_tache: null,
-              id_utilisateur: userId,
+              id_utilisateur: JSON.stringify(usersId),
               status: null,
               numero: number
             });
@@ -77,7 +81,7 @@ const githubHook = ({ action, issue, comment }) => {
               },
               {
                 where: {
-                  number: number
+                  numero: number
                 }
               }
             );
@@ -104,7 +108,7 @@ const githubHook = ({ action, issue, comment }) => {
         },
         {
           where: {
-            number: number
+            numero: number
           }
         }
       );
