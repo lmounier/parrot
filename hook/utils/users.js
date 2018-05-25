@@ -1,4 +1,4 @@
-exports.mapGithubAccountToUserId = username => {
+const mapGithubAccountToUserId = username => {
   switch (username) {
     case "lmounier":
       return 1;
@@ -21,4 +21,14 @@ exports.mapGithubAccountToUserId = username => {
     default:
       return null;
   }
+};
+
+exports.mapGithubAccountToUserId = mapGithubAccountToUserId;
+
+exports.getUsersId = users => {
+  return JSON.stringify(
+    users.map(user => {
+      return mapGithubAccountToUserId(user.login);
+    })
+  );
 };

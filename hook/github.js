@@ -1,6 +1,6 @@
 const models = require("./models");
 const db = require("./db");
-const { mapGithubAccountToUserId } = require("./utils/users");
+const { mapGithubAccountToUserId, getUsersId } = require("./utils/users");
 const zenhubFetch = require("./utils/zenhub");
 const { getEstimation, getStatus } = require("./utils/selector");
 
@@ -9,8 +9,8 @@ const githubHook = ({ action, issue, comment }) => {
 
   switch (action) {
     case "opened": {
-      const { number, title, assignee, html_url } = issue;
-      const userId = mapGithubAccountToUserId(assignee.login);
+      const { number, title, assignees, html_url } = issue;
+      const usersId = getUsersId(assignees);
 
       models.Task.create({
         libelle: title,
@@ -19,7 +19,7 @@ const githubHook = ({ action, issue, comment }) => {
         id_sprint: null,
         url: html_url,
         id_type_tache: null,
-        id_utilisateur: userId,
+        id_utilisateur: usersId,
         status: null,
         numero: number
       });
@@ -27,12 +27,12 @@ const githubHook = ({ action, issue, comment }) => {
     }
 
     case "assigned": {
-      const { number, assignee } = issue;
-      const userId = mapGithubAccountToUserId(assignee.login);
+      const { number, assignees } = issue;
+      const usersId = getUsersId(assignees);
 
       models.Task.update(
         {
-          id_utilisateur: userId
+          id_utilisateur: usersId
         },
         {
           where: {
@@ -45,9 +45,8 @@ const githubHook = ({ action, issue, comment }) => {
 
     case "created": {
       const { number, title, assignees, html_url } = issue;
-      const usersId = assignees.map(assignee => {
-        mapGithubAccountToUserId(assignee.login);
-      });
+
+      const usersId = getUsersId(assignees);
 
       console.log(usersId);
 
@@ -65,7 +64,7 @@ const githubHook = ({ action, issue, comment }) => {
               id_sprint: null,
               url: html_url,
               id_type_tache: null,
-              id_utilisateur: JSON.stringify(usersId),
+              id_utilisateur: usersId,
               status: null,
               numero: number
             });
@@ -76,8 +75,12 @@ const githubHook = ({ action, issue, comment }) => {
           zenhubFetch(`/issues/${number}`).then(({ data }) => {
             models.Task.update(
               {
+                libelle: title,
                 status: getStatus(data),
-                pc: getEstimation(data)
+                pc: getEstimation(data),
+                id_utilisateur: usersId,
+                url: html_url,
+                numero: number
               },
               {
                 where: {
