@@ -27,6 +27,9 @@ foreach ($lots as $lot) {
             if($tache['status'] == "Done" || $tache['status'] == "Closed" ) {
                 $avancement = 100;
                 $rafTache = 0;
+            } elseif($tempsTache == 0) {
+                $rafTache = "?";
+                $avancement = 0;
             } else {
                 $rafTache = getRAFFromTache($bdd, $tache['id']);
                 $avancement = 100 * $tempsTache / ($rafTache + $tempsTache);
@@ -74,9 +77,8 @@ foreach ($lots as $lot) {
     );
     array_push($listeLots, $lotInfos);
 }
-/*echo "<pre>";
-var_dump($listeLots);
-echo "</pre>";*/
+
+
 
 require("../Include/header.php");
 require("../Views/backlog.php");

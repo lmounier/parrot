@@ -10,6 +10,7 @@ $prenomP = ucfirst($_SESSION['auth']->prenom);
 $dateActuelle = date("d/m/Y");
 $currentSprint = getSprintByDate($bdd, date("Y-m-d"));
 $allTasks = getAllTasks($bdd);
+$allLots = getAllLots($bdd);
 $allSprints = getListeSprints($bdd);
 $titre = "Accueil";
 $lastImputations = getLastImputationsUser($bdd, $_SESSION['auth']->id);

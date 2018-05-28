@@ -8,6 +8,12 @@ $bdd = ConnexionBD::getInstance();
 
 session_start();
 
+function getAllLots($bdd) {
+    $result = $bdd->getData("SELECT * FROM Lot");
+    $lots = $result->fetchAll();
+    return $lots;
+}
+
 function convertTempsMinuteHeure($bdd, $temps) {
     $heureTotal = floor($temps / 60);
     $minuteTotal = $temps - ($heureTotal * 60);
@@ -52,6 +58,20 @@ function getTacheRealiseSprintUser($bdd, $userId, $sprint) {
     $result = $bdd->getData($requete)->fetchAll();
 
     return $result;
+}
+
+function getPCConsommeByTypeSprint($bdd, $typeId, $sprint = null) {
+    $requete = "SELECT SUM(t.pc) as pc FROM Tache t LEFT JOIN Tache_type ty ON ty.id= t.id_type_tache WHERE ( STATUS = 'Done' OR STATUS = 'Closed' ) AND ty.id = " . $typeId;
+    if($sprint != null) $requete .= " AND t.id IN( SELECT id_tache FROM Imputation WHERE date_imput >= '" . $sprint['date_debut'] . "' AND date_imput <= '" . $sprint['date_fin'] . "')";
+    $result = $bdd->getData($requete)->fetch();
+
+    return $result;
+}
+
+function getPcTotalByType($bdd, $typeId) {
+    $result = $bdd->getData("SELECT SUM(pc) as pc FROM Tache WHERE id_type_tache = " . $typeId);
+    $pc = $result->fetch();
+    return $pc;
 }
 
 function getTempsImputationTacheUser($bdd, $userId, $idTache) {
@@ -109,8 +129,25 @@ function getTacheEnCoursByUser($bdd, $userId){
     return $resultat;
 }
 
+function getImputationTypeMembreSprint($bdd, $membreId, $typeTacheId, $currentSprint) {
+    $result = $bdd->getData("SELECT SUM(i.heure) as heure, SUM(i.minute) as minute, ty.libelle as libelle FROM Imputation i LEFT JOIN Tache t ON i.id_tache = t.id LEFT JOIN Tache_type ty ON t.id_type_tache = ty.id WHERE i.id_utilisateur = " . $membreId . " AND ty.id = " . $typeTacheId . " AND i.date_imput >= '" . $currentSprint['date_debut'] . "' AND i.date_imput <= '" . $currentSprint['date_fin'] . "'" );
+    $resultat = $result->fetch();
+    $temps = $resultat['heure'] * 60 + $resultat['minute'];
+    return $temps;
+}
+
+
 function getAllTasks($bdd){
     $result = $bdd->getData("SELECT * FROM Tache ORDER BY numero ASC");
+    $liste = $result->fetchAll();
+    return $liste;
+}
+
+function getTacheFromLot($bdd, $id) {
+    $requete = "SELECT t.id, t.libelle, t.numero FROM Tache t";
+    if($id != -1 ) $requete .= " LEFT JOIN User_story us ON us.id = t.id_us LEFT JOIN Lot l ON l.id = us.id_lot WHERE l.id = " . $id;
+    $requete .= " ORDER BY t.numero ASC";
+    $result = $bdd->getData($requete);
     $liste = $result->fetchAll();
     return $liste;
 }

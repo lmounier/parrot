@@ -1,203 +1,208 @@
-
 ::selection {
-    color: #FFF; 
-    background: #6c0000;
+  color: #fff;
+  background: #6c0000;
 }
 
-body{
-    margin: 0;
-    padding: 0;
-    background: url('../IMG/bg_index.png') no-repeat center fixed;
-    background-size: cover;
-    background-color: #dbdbdb;
-    font-family: Verdana;
-    color: #000;
-    font-size: 1em;
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  font-family: Verdana;
+  color: #000;
+  font-size: 1em;
 }
 
-p, h1, h2, h3, h4, h5, h6{
-    margin: 0;
-    padding: 0;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
 }
 
-a{
-    text-decoration: none;
-    color: #000;
+a {
+  text-decoration: none;
+  color: #000;
 }
 
-hr{
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
-    border-style: none;
-    border-bottom: 1px solid #888888;
+hr {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  border-style: none;
+  border-bottom: 1px solid #888888;
 }
 
-input, select{
-    width: 100%;
-    color: #939393;
-    background: #efefef;
-    height: 1.5em;
-    line-height: 1.5em;
-    border: 1px solid #dbdbdb;
-    padding: 1%;
-    border-radius: 5px;
-    margin-top: 1em;
+input,
+select {
+  width: 100%;
+  color: #939393;
+  background: #efefef;
+  height: 1.5em;
+  line-height: 1.5em;
+  border: 1px solid #dbdbdb;
+  padding: 1%;
+  border-radius: 5px;
+  margin-top: 1em;
 }
 
-input[type=submit]{
-    height: inherit;
+input[type="submit"] {
+  height: inherit;
 }
 
-input:focus{
-    outline: none;
-    border-color: #a0a0a0;
-    box-shadow: 0 0 2px #a0a0a0;
+input:focus {
+  outline: none;
+  border-color: #a0a0a0;
+  box-shadow: 0 0 2px #a0a0a0;
 }
 
-textarea{
-    color: #939393;
-    background: #efefef;
-    width: 96%;
-    max-width: 96%;
-    font-family: Verdana;
-    line-height: 1.5em;
-    border: 1px solid #dbdbdb;
-    padding: 1%;
-    border-radius: 5px;
-    margin-top: 1em;
+textarea {
+  color: #939393;
+  background: #efefef;
+  width: 96%;
+  max-width: 96%;
+  font-family: Verdana;
+  line-height: 1.5em;
+  border: 1px solid #dbdbdb;
+  padding: 1%;
+  border-radius: 5px;
+  margin-top: 1em;
 }
 
-textarea:focus{
-    outline: none;
-    border-color: #a0a0a0;
-    box-shadow: 0 0 2px #a0a0a0;
+textarea:focus {
+  outline: none;
+  border-color: #a0a0a0;
+  box-shadow: 0 0 2px #a0a0a0;
 }
 
 /*****************************/
 /*         TEMPLATE          */
 /*****************************/
-#container{
-    width: 80%;
-    margin: auto;
-    background: #FFF;
-    padding: 1%;
-    border-radius: 5px;
+#container {
+  width: 90%;
+  margin: auto;
+  background: #fff;
+  padding: 1%;
+  border-radius: 5px;
 }
 
-.center{
-    margin: auto;
+.center {
+  margin: auto;
 }
 
 /* Button 1 */
-.button{
-    width: 100%;
-    margin: auto;
-    height: 2em;
-    line-height: 2em;
-    background: #6c0000;
-    color: #FFF;
-    font-size: 1.5em;
-    text-align: center;
-    border: 1px solid #6c0000;
-    cursor: pointer;
-    
-    transition-property: color, background;
-    transition-duration: 0.2s;
+.button {
+  width: 100%;
+  margin: auto;
+  height: 2em;
+  line-height: 2em;
+  background: #6c0000;
+  color: #fff;
+  font-size: 1.5em;
+  text-align: center;
+  border: 1px solid #6c0000;
+  cursor: pointer;
+
+  transition-property: color, background;
+  transition-duration: 0.2s;
 }
 
-.button:hover{
-    background: #FFF;
-    color: #6c0000;
+.button:hover {
+  background: #fff;
+  color: #6c0000;
 }
 
-.button a:hover{
-    color: #6c0000;
+.button a:hover {
+  color: #6c0000;
 }
 
 /* Button 2 */
-.inv_button{
-    width: 100%;
-    margin: auto;
-    height: 2em;
-    line-height: 2em;
-    background: #FFF;
-    color: #6c0000;
-    font-size: 1.5em;
-    text-align: center;
-    border: 1px solid #6c0000;
-    cursor: pointer;
-    
-    transition-property: color, background;
-    transition-duration: 0.2s;
+.inv_button {
+  width: 100%;
+  margin: auto;
+  height: 2em;
+  line-height: 2em;
+  background: #fff;
+  color: #6c0000;
+  font-size: 1.5em;
+  text-align: center;
+  border: 1px solid #6c0000;
+  cursor: pointer;
+
+  transition-property: color, background;
+  transition-duration: 0.2s;
 }
 
 .inv_button:hover {
-	background: #6c0000;
-    color: #FFF;
+  background: #6c0000;
+  color: #fff;
 }
 
-.inv_button a:hover{
-    color: #FFF;
+.inv_button a:hover {
+  color: #fff;
 }
 
 /* Button 3 */
-.transparent_button{
-    width: 100%;
-    margin: auto;
-    height: 2em;
-    line-height: 2em;
-    background: rgba(0, 0, 0, 0.08);
-    color: #6c0000;
-    font-size: 1.5em;
-    text-align: center;
-    border: 1px solid #6c0000;
-    border-radius: 5px;
-    cursor: pointer;
-    
-    transition-property: color, background;
-    transition-duration: 0.2s;
+.transparent_button {
+  width: 100%;
+  margin: auto;
+  height: 2em;
+  line-height: 2em;
+  background: rgba(0, 0, 0, 0.08);
+  color: #6c0000;
+  font-size: 1.5em;
+  text-align: center;
+  border: 1px solid #6c0000;
+  border-radius: 5px;
+  cursor: pointer;
+
+  transition-property: color, background;
+  transition-duration: 0.2s;
 }
 
-.transparent_button:hover{
-    background: #6c0000;
-    color: #FFF;
-    border: 1px solid #6c0000;
+.transparent_button:hover {
+  background: #6c0000;
+  color: #fff;
+  border: 1px solid #6c0000;
 }
 
-.transparent_button a:hover{
-    color: #FFF;
-    border: 1px solid #6c0000;
+.transparent_button a:hover {
+  color: #fff;
+  border: 1px solid #6c0000;
 }
 
-.button a, .inv_button a, .transparent_button a{
-    color: #FFF;
-    display: block;
+.button a,
+.inv_button a,
+.transparent_button a {
+  color: #fff;
+  display: block;
 }
 
-.tb_active{
-    background: #6c0000;
-    color: #FFF;
-    border: 1px solid #6c0000; 
+.tb_active {
+  background: #6c0000;
+  color: #fff;
+  border: 1px solid #6c0000;
 }
 
-.row{
-    padding: 15px 10px;
+.row {
+  padding: 15px 10px;
 }
-
 
 .btn-primary {
-    background-color: #6c0000;
-    border-color: #6c0000;
+  background-color: #6c0000;
+  border-color: #6c0000;
 }
 
 .noStart {
-    color: red;
+  color: red;
 }
 
 .inProgress {
-    color: orange;
+  color: orange;
 }
 
 .finish {
-    color: darkgreen;
+  color: darkgreen;
 }

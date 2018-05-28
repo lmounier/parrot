@@ -9,11 +9,28 @@
         <form method="post" action="../Controller/accueil.php" style="width: 100%">
             <div class="row">
                 <?php
+                if(!empty($allLots)){
+                    ?>
+                    <div class="col-md-3">
+                        <label class="row">Lot :</label>
+                        <select class="row" name="lot">
+                            <option value="">Choisissez un lot</option>
+                            <?php
+                            foreach($allLots as $lot){
+                                echo "<option value='" . $lot['id'] . "'";
+                                if(isset($_POST['lot']) && $_POST['lot'] == $lot['id']) echo " selected";
+                                echo ">" . $lot['libelle'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <?php
+                }
                 if(!empty($allTasks)){
                     ?>
                     <div class="col-md-3">
                         <label class="row">Tâche :</label>
-                        <select class="row" name="tache">
+                        <select class="row" id="tache" name="tache">
                             <option value="">Choisissez une tâche</option>
                             <?php
                             foreach($allTasks as $tache){
@@ -61,18 +78,19 @@
         </form>
     </div>
     <div class="row">
-        <table>
+        <h2>Dernières imputations</h2>
+        <table class="table table-striped">
             <thead>
-                <td>Type</td>
-                <td>Numéro</td>
-                <td>Tâche</td>
-                <td>temps</td>
-                <td>RAF</td>
+                <td scope="col">Type</td>
+                <td scope="col">Numéro</td>
+                <td scope="col">Tâche</td>
+                <td scope="col">temps</td>
+                <td scope="col">RAF</td>
             </thead>
             <tbody>
                 <?php foreach ($lastImputations as $imputation) {
                     ?>
-                    <tr>
+                    <tr scope='row'>
                         <td><?= $imputation['type']; ?></td>
                         <td><?= $imputation['numero']; ?></td>
                         <td><?= $imputation['libelle']; ?></td>
@@ -88,25 +106,25 @@
     <div class="row">
         <div class="col-md-6">
         Date actuelle : <?= $dateActuelle; ?><br/>
-        Sprint actuel : <?= $currentSprint['libelle']; ?><br/>
-        Tâche(s) en cours : 
+        Sprint actuel : <?= $currentSprint['libelle']; ?><br/><br/>
+        <h2>Tâche(s) en cours : </h2>
         <?php 
         if(count($tachesEnCours) == 0 ) echo "Aucune tâche en cours"; 
         else {
             ?>
-            <table>
+            <table class="table table-striped">
                 <thead>
-                    <td>numero</td>
-                    <td>libelle</td>
-                    <td>pc</td>
-                    <td>raf</td>
-                    <td>avancement</td>
+                    <td scope="col">numero</td>
+                    <td scope="col">libelle</td>
+                    <td scope="col">pc</td>
+                    <td scope="col">raf</td>
+                    <td scope="col">avancement</td>
                 </thead>
                 <tbody>
                     <?php
                     foreach($tachesEnCours as $tache){
                         ?>
-                        <tr>
+                        <tr scope='row'>
                             <td><?= $tache['numero']; ?></td>
                             <td><?= $tache['libelle']; ?></td>
                             <td><?= $tache['pc']; ?></td>
