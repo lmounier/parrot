@@ -9,42 +9,23 @@
         <form method="post" action="../Controller/accueil.php" style="width: 100%">
             <div class="row">
                 <?php
-                if(!empty($type_tache)){
-                    ?>
-                    <div class="col-md-2">
-                        <label class="row">Type de tâche</label>
-                        <select class="row" name="type">
-                            <option value="">Choisissez un type de tâche</option>
-                            <?php
-                            foreach($type_tache as $type){
-                                echo "<option value='" . $type['id'] . "'";
-                                if(isset($_POST['type']) && $_POST['type'] == $type['id']) echo " selected";
-                                echo ">" . $type['libelle'] . "</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-                    <?php
-                }
-                if(!empty($uss)){
+                if(!empty($allTasks)){
                     ?>
                     <div class="col-md-3">
-                        <label class="row">User story :</label>
-                        <select class="row" name="us">
-                            <option value="">Choisissez une user story</option>
+                        <label class="row">Tâche :</label>
+                        <select class="row" name="tache">
+                            <option value="">Choisissez une tâche</option>
                             <?php
-                            foreach($uss as $us){
-                                echo "<option value='" . $us['id'] . "'";
-                                if(isset($_POST['us']) && $_POST['us'] == $us['id']) echo " selected";
-                                echo ">" . $us['libelle'] . "</option>";
+                            foreach($allTasks as $tache){
+                                echo "<option value='" . $tache['id'] . "'";
+                                if(isset($_POST['tache']) && $_POST['tache'] == $tache['id']) echo " selected";
+                                echo ">" . $tache['libelle'] . "</option>";
                             }
                             ?>
                         </select>
                     </div>
                     <?php
                 }
-
                 $date = date("Y-m-d");
                 ?>
                 <div class="col-md-2">
@@ -73,45 +54,220 @@
 
             </div>
 
-
             <div class="row">
                 <input type="submit" value="Ajouter" name="ajouter" class="col-md-offset-2 col-md-2">
             </div>
 
         </form>
     </div>
-
-
-    <h2 style="text-align: center">Ma liste des temps</h2>
-    <table style="margin-bottom: 100px;" width="100%">
-        <thead style="text-align: center; font-weight: bold; border-bottom: 1px solid darkred">
-        <tr style="width: 100%; color: darkred; padding : 50px">
-            <th style="width: 10%">Date</th>
-            <th style="width: 15%">Type tâche</th>
-            <th style="width: 15%">Lot</th>
-            <th style="width: 50%">User story</th>
-            <th style="width: 10%">Temps</th>
-            <th style="width: 5%">RAF</th>
-        </tr>
-        </thead>
-        <tbody style="text-align: center; font-weight: 200">
-        <?php
-        foreach($imputations as $imputation){
-            $us = getUserStoryById($bdd, $imputation['id_us']);
-            $lot = getLotById($bdd, $us['id_lot']);
-            $type = getTypeTacheById($bdd, $imputation['id_tache']);
-            if($imputation['minute'] <10) $imputation['minute'] = "0" . $imputation['minute'];
-            echo "<tr style='color: dimgrey; border-bottom: 1px solid lightgrey'>";
-            echo "<th>" . $imputation['date_imput'] . "</th>";
-            echo "<th>" . $type['libelle'] . "</th>";
-            echo "<th>" . $lot['libelle'] . "</th>";
-            echo "<th>" . $us['libelle'] . "</th>";
-            echo "<th>" . $imputation['heure'] . "h" . $imputation['minute'] . "min</th>";
-            echo "<th>" . $imputation['raf'] . "h</th>";
-            echo "</tr>";
-        }
-        ?>
-        </tbody>
-    </table>
-
+    <div class="row">
+        <table>
+            <thead>
+                <td>Type</td>
+                <td>Numéro</td>
+                <td>Tâche</td>
+                <td>temps</td>
+                <td>RAF</td>
+            </thead>
+            <tbody>
+                <?php foreach ($lastImputations as $imputation) {
+                    ?>
+                    <tr>
+                        <td><?= $imputation['type']; ?></td>
+                        <td><?= $imputation['numero']; ?></td>
+                        <td><?= $imputation['libelle']; ?></td>
+                        <td><?= $imputation['heure'] . "h" . $imputation['minute']; ?></td>
+                        <td><?= $imputation['raf']; ?></td>
+                    </tr>
+                    <?php
+                }
+                ?>
+            </tbody>
+         </table>
+        </div>
+    <div class="row">
+        <div class="col-md-6">
+        Date actuelle : <?= $dateActuelle; ?><br/>
+        Sprint actuel : <?= $currentSprint['libelle']; ?><br/>
+        Tâche(s) en cours : 
+        <?php 
+        if(count($tachesEnCours) == 0 ) echo "Aucune tâche en cours"; 
+        else {
+            ?>
+            <table>
+                <thead>
+                    <td>numero</td>
+                    <td>libelle</td>
+                    <td>pc</td>
+                    <td>raf</td>
+                    <td>avancement</td>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach($tachesEnCours as $tache){
+                        ?>
+                        <tr>
+                            <td><?= $tache['numero']; ?></td>
+                            <td><?= $tache['libelle']; ?></td>
+                            <td><?= $tache['pc']; ?></td>
+                            <td><?= $tache['raf'] . "h"; ?></td>
+                            <td><?= $tache['avancement'] . "%"; ?></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <?php
+        } ?>
+        </div>
+        <div class="col-md-6">
+            <input type="hidden" id="listesPc" value='<?= json_encode($listesPc); ?>'/>
+            <input type="hidden" id="listesVelocite" value='<?= json_encode($listesVelocite); ?>'/>
+            <input type="hidden" id="sprints" value='<?= json_encode($listeSprints); ?>'/>
+            <?php
+                foreach($listesPc as $liste) {
+                    ?>
+                    <input type="hidden" id="<?= $liste; ?>" value='<?= json_encode($$liste); ?>'/>
+                    <?php
+                }
+                foreach($listesVelocite as $liste) {
+                    ?>
+                    <input type="hidden" id="<?= $liste; ?>" value='<?= json_encode($$liste); ?>'/>
+                    <?php
+                }
+                ?>
+            <div>
+                <canvas id="ChartVelocite" style="width: 100%;"></canvas>
+            </div>
+            <div>
+                <canvas id="ChartPcRealise" style="width: 100%;"></canvas>
+            </div>
+        </div>
+    </div>
 </section>
+
+<script>
+    var ctx = document.getElementById("ChartVelocite");
+    var ctx2 = document.getElementById("ChartPcRealise");
+    var listeSprints = document.getElementById("sprints").value;
+    var resultSprints = JSON.parse(listeSprints);
+
+    var resultPcRealise = JSON.parse(document.getElementById("listesPc").value);
+    var resultVelocite = JSON.parse(document.getElementById("listesVelocite").value);
+    var datasets = [];
+    resultPcRealise.forEach(function(element, key) {
+        var name = "result" + element;
+        var color = getRandomColor();
+        var item = {
+            data: JSON.parse(document.getElementById(element).value),
+            label: element,
+            backgroundColor: color,
+            borderColor: color,
+            fill: [false]
+        }
+        datasets.push(item);
+    })
+
+    var datasetsVelocite = [];
+    resultVelocite.forEach(function(element, key) {
+        var name = "result" + element;
+        var color = getRandomColor();
+        var item = {
+            data: JSON.parse(document.getElementById(element).value),
+            label: element,
+            backgroundColor: color,
+            borderColor: color,
+            fill: [false]
+        }
+        datasetsVelocite.push(item);
+    })
+
+    var myLineChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["sprint 1", "sprint 2", "sprint 3", "sprint 4", "sprint 5"],
+            datasets: datasetsVelocite
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Suivi de ma vélocité'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Sprint'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'vélocité (pc/j-h)'
+                    }
+                }]
+            }
+        }
+    });
+
+    var myLineChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ["sprint 1", "sprint 2", "sprint 3", "sprint 4", "sprint 5"],
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Suivi des pc consommés'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Sprint'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'pc'
+                    }
+                }]
+            }
+        }
+    });
+
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+</script>
