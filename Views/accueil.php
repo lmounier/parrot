@@ -68,6 +68,15 @@
                     echo ' />h';
                     ?>
                 </div>
+                <div class="col-md-1">
+                    <label class="row">Développeur principal :</label>
+                    <?php
+                    echo '<input class="col-md-10" type="checkbox" name="mainDev"';
+                    if(isset($_POST['mainDev']) && $_POST['mainDev'] != "1") echo 'value="1" checked';
+                    if(empty($_POST['mainDev'])) echo ' checked';
+                    echo ' value="1"/>';
+                    ?>
+                </div>
 
             </div>
 

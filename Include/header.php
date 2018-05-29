@@ -32,8 +32,6 @@
                 <nav>
                     <ul>
                         <li link="accueil.php">Accueil</li>
-                        <li link="statistique.php">Statistiques</li>
-                        <li link="suiviUs.php">Suivi</li>
                         <li link="backlog.php">Backlog</li>
                         <li link="equipe.php">Equipe</li>
                         <li link="sprint.php">Sprint</li>
@@ -45,8 +43,6 @@
             ?>
             <nav>
                 <ul>
-                    <li link="statistique.php">Statistiques</li>
-                    <li link="suiviUs.php">Suivi</li>
                     <li link="backlog.php">Backlog</li>
                     <li link="equipe.php">Equipe</li>
                     <li link="sprint.php">Sprint</li>

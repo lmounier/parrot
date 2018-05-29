@@ -206,3 +206,13 @@ textarea:focus {
 .finish {
   color: darkgreen;
 }
+
+.ligneLot {
+  background-color: #273746 !important;
+  color: #fff;
+}
+
+.ligneUs {
+  background-color: #aab7b8;
+  font-weight: bold;
+}

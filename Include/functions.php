@@ -255,7 +255,7 @@ function getListeMembres($bdd){
 }
 
 function getListeSprints($bdd){
-    $result = $bdd->getData("SELECT * FROM Sprint");
+    $result = $bdd->getData("SELECT * FROM Sprint WHERE id != 6");
     $liste = $result->fetchAll();
     return $liste;
 }
