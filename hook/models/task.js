@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       status: DataTypes.STRING,
       numero: DataTypes.INTEGER
     },
-    {}
+    {
+      timestamps: false,
+      tableName: "Tache"
+    }
   );
   Task.associate = function(models) {
     // associations can be defined here
