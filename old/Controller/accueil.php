@@ -27,7 +27,7 @@ if(!empty($_POST['ajouter'])){
             else {
                 if(empty($_POST['minute'])) $_POST['minute'] = 0;
                 if(empty($_POST['raf'])) $_POST['raf'] = 0;
-                $requete = 'INSERT INTO Imputation (id_utilisateur, id_us, id_tache, date_imput, heure, minute, raf) VALUES(' . $_SESSION['auth']->id . ', ' . $_POST['us'] . ', ' . $_POST['type'] . ', "' . $_POST['dateImput']. '", ' . $_POST['heure'] . ', ' . $_POST['minute'] . ', ' . $_POST['raf'] .')';
+                $requete = 'INSERT INTO Imputation2 (id_utilisateur, id_us, id_tache, date_imput, heure, minute, raf) VALUES(' . $_SESSION['auth']->id . ', ' . $_POST['us'] . ', ' . $_POST['type'] . ', "' . $_POST['dateImput']. '", ' . $_POST['heure'] . ', ' . $_POST['minute'] . ', ' . $_POST['raf'] .')';
                 try{
                     $bdd->setData($requete);
                 }catch (Exception $e) {

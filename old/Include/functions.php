@@ -8,39 +8,34 @@ $bdd = ConnexionBD::getInstance();
 
 session_start();
 
-function getSprint($bdd, $date) {
-    $result = $bdd->getData("SELECT libelle FROM Sprint WHERE date_debut <= '" . $date . "' AND date_fin >= '" . $date . "'");
-    $sprint = $result->fetch()[0];
-    return $sprint;
-}
 
 function getListeImputationsByUser($bdd){
-    $result = $bdd->getData("SELECT * FROM Imputation WHERE id_utilisateur = " . $_SESSION['auth']->id . " ORDER BY date_imput DESC");
+    $result = $bdd->getData("SELECT * FROM Imputation2 WHERE id_utilisateur = " . $_SESSION['auth']->id . " ORDER BY date_imput DESC");
     $liste = $result->fetchAll();
 
     return $liste;
 }
 
 function getListeLots($bdd){
-    $result = $bdd->getData("SELECT * FROM Lot");
+    $result = $bdd->getData("SELECT * FROM Lot2");
     $liste = $result->fetchAll();
     return $liste;
 }
 
 function getListeUs($bdd){
-    $result = $bdd->getData("SELECT * FROM User_Story ORDER BY libelle ASC");
+    $result = $bdd->getData("SELECT * FROM User_Story2 ORDER BY libelle ASC");
     $liste = $result->fetchAll();
     return $liste;
 }
 
 function getListeTypeTache($bdd){
-    $result = $bdd->getData("SELECT * FROM Tache_Type");
+    $result = $bdd->getData("SELECT * FROM Tache_Type2");
     $liste = $result->fetchAll();
     return $liste;
 }
 
 function getUserStoryById($bdd, $id){
-    $result = $bdd->getData("SELECT * FROM User_Story WHERE id=" . $id);
+    $result = $bdd->getData("SELECT * FROM User_Story2 WHERE id=" . $id);
     $us = $result->fetch();
     return $us;
 }
@@ -52,7 +47,7 @@ function getLotById($bdd, $id){
 }
 
 function getTypeTacheById($bdd, $id){
-    $result = $bdd->getData("SELECT * FROM Tache_Type WHERE id=" . $id);
+    $result = $bdd->getData("SELECT * FROM Tache_Type2 WHERE id=" . $id);
     $type = $result->fetch();
     return $type;
 }

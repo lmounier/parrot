@@ -10,7 +10,7 @@ $listeImputationSalaire = array();
 foreach ($imputations as $imputation){
 
     //Users stories
-    $libelleUs = $bdd->getData('SELECT libelle FROM User_Story INNER JOIN Imputation ON User_Story.id = Imputation.id_us WHERE Imputation.id = ' . $imputation['id'])->fetch();
+    $libelleUs = $bdd->getData('SELECT libelle FROM User_Story2 INNER JOIN Imputation2 ON User_Story2.id = Imputation2.id_us WHERE Imputation2.id = ' . $imputation['id'])->fetch();
 
     //Temps
     $temps = $imputation['heure']*60 + $imputation['minute'];
@@ -21,7 +21,7 @@ foreach ($imputations as $imputation){
     $totalSalaire += round($salaire[0] * $temps / 420);
 
     //Point complexité
-    $pc = $bdd->getData('SELECT pc FROM User_Story INNER JOIN Imputation ON User_Story.id = Imputation.id_us WHERE Imputation.id = ' . $imputation['id'])->fetch();
+    $pc = $bdd->getData('SELECT pc FROM User_Story2 INNER JOIN Imputation2 ON User_Story2.id = Imputation2.id_us WHERE Imputation2.id = ' . $imputation['id'])->fetch();
     $totalPc += $pc[0];
 
     $index = array_search( "" . $imputation['id_us'], $listIdUs);

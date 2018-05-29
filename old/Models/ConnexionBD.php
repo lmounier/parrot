@@ -4,7 +4,7 @@
         
         private function __construct(){
             if($_SERVER['HTTP_HOST'] == "localhost") {
-                self::$_connexion = new PDO('mysql:host=localhost;dbname=management2;charset=utf8', 'lisa', 'lisa');
+                self::$_connexion = new PDO('mysql:host=localhost;dbname=management;charset=utf8', 'lisa', 'lisa');
             } else {
                 self::$_connexion = new PDO('mysql:host=lmouniergiadmin.mysql.db;dbname=lmouniergiadmin;charset=utf8', 'lmouniergiadmin', 'ag8jA58A');
             }

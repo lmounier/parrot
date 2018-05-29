@@ -83,11 +83,11 @@ if (isset($jourSave)) {
 }
 
 // Libelle de la US
-$requete = "SELECT libelle FROM User_Story WHERE id = " . $usSave;
+$requete = "SELECT libelle FROM User_Story2 WHERE id = " . $usSave;
 $libelleUs = $bdd->getData($requete)->fetch()[0];
 
 // Temps par US du lot
-$requete = "SELECT us.libelle, SUM(i.heure) as heure, SUM(i.minute) as minute FROM Imputation i INNER JOIN User_Story us ON i.id_us = us.id " . $whereClause;
+$requete = "SELECT us.libelle, SUM(i.heure) as heure, SUM(i.minute) as minute FROM Imputation2 i INNER JOIN User_Story2 us ON i.id_us = us.id " . $whereClause;
 $tmpLot = $bdd->getData($requete)->fetchAll();
 //var_dump($tmpLot);
 foreach ($tmpLot as $tmp) {
@@ -104,7 +104,7 @@ $tempsTotal = $heureTotal . "h" . $minuteTotal . "min";
 $tempsJH = round($totalTemps/420, 2);
 
 // Coût par US du lot
-$requete = "SELECT us.libelle, SUM(i.heure* 60 + i.minute * (m.salaire/420)) as cout FROM Imputation i LEFT JOIN Utilisateur u ON i.id_utilisateur = u.id LEFT JOIN Metier m ON u.id_metier = m.id LEFT JOIN User_Story us ON i.id_us = us.id " . $whereClause;
+$requete = "SELECT us.libelle, SUM(i.heure* 60 + i.minute * (m.salaire/420)) as cout FROM Imputation2 i LEFT JOIN Utilisateur u ON i.id_utilisateur = u.id LEFT JOIN Metier m ON u.id_metier = m.id LEFT JOIN User_Story2 us ON i.id_us = us.id " . $whereClause;
 $prixLot = $bdd->getData($requete)->fetchAll();
 foreach ($prixLot as $prix) {
     array_push($listePrixLot, round($prix['cout'], 2));
@@ -113,7 +113,7 @@ foreach ($prixLot as $prix) {
 $prixTotal = round($prixTotalLot, 2) . "€";
 
 // Temps par type de tache pour le lot
-$requete = "SELECT SUM(i.heure) as heure, SUM(i.minute) as minute, t.libelle FROM `Imputation` i LEFT JOIN Tache_Type t ON i.id_tache = t.id LEFT JOIN User_Story us ON i.id_us = us.id " . $whereClause . " GROUP BY t.libelle";
+$requete = "SELECT SUM(i.heure) as heure, SUM(i.minute) as minute, t.libelle FROM `Imputation2` i LEFT JOIN Tache_Type2 t ON i.id_tache = t.id LEFT JOIN User_Story2 us ON i.id_us = us.id " . $whereClause . " GROUP BY t.libelle";
 $tmpTypeTache = $bdd->getData($requete)->fetchAll();
 foreach ($tmpTypeTache as $tmpTache) {
     array_push($listeLibelleTypeTache, $tmpTache['libelle']);
@@ -122,7 +122,7 @@ foreach ($tmpTypeTache as $tmpTache) {
 }
 
 // Coût par type de tache pour le lot
-$requete = "SELECT t.libelle, SUM(i.heure* 60 + i.minute * (m.salaire/420)) as cout FROM Imputation i LEFT JOIN Utilisateur u ON i.id_utilisateur = u.id LEFT JOIN Metier m ON u.id_metier = m.id LEFT JOIN User_Story us ON i.id_us = us.id LEFT JOIN Tache_Type t ON i.id_tache = t.id " . $whereClause . " GROUP BY t.libelle";
+$requete = "SELECT t.libelle, SUM(i.heure* 60 + i.minute * (m.salaire/420)) as cout FROM Imputation2 i LEFT JOIN Utilisateur u ON i.id_utilisateur = u.id LEFT JOIN Metier m ON u.id_metier = m.id LEFT JOIN User_Story2 us ON i.id_us = us.id LEFT JOIN Tache_Type2 t ON i.id_tache = t.id " . $whereClause . " GROUP BY t.libelle";
 $prixTypeTache = $bdd->getData($requete)->fetchAll();
 foreach ($prixTypeTache as $prixTache) {
     array_push($listePrixTypeTache, round($prixTache['cout'], 2));

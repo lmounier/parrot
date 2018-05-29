@@ -11,7 +11,7 @@ $lots = $bdd->getData($requete)->fetchAll();
 $nomListes = array();
 foreach ($lots as $lot) {
     $nomListe = "listeUsLot" . $lot['libelle'];
-    $requete = "SELECT libelle, pc, id FROM User_Story WHERE id_lot = " . $lot['id'];
+    $requete = "SELECT libelle, pc, id FROM User_Story2 WHERE id_lot = " . $lot['id'];
     $$nomListe = $bdd->getData($requete)->fetchAll();
     array_push($nomListes, $nomListe);
 }
@@ -27,7 +27,7 @@ foreach($nomListes as $nomLi) {
         $pc = $us['pc'];
         $nomListe = "listeImputationsUs" . $us['id'];
         array_push($listeListes, $nomListe);
-        $requete = "SELECT i.heure, i.minute, i.raf, us.pc, us.libelle FROM Imputation i LEFT JOIN User_Story us ON i.id_us = us.id WHERE i.id_us = " . $us['id'] . " ORDER BY i.id DESC";
+        $requete = "SELECT i.heure, i.minute, i.raf, us.pc, us.libelle FROM Imputation2 i LEFT JOIN User_Story2 us ON i.id_us = us.id WHERE i.id_us = " . $us['id'] . " ORDER BY i.id DESC";
         $$nomListe = $bdd->getData($requete)->fetchAll();
 
         if(count($$nomListe) == 0 ) {

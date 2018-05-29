@@ -14,7 +14,7 @@ $lots = getListeLots($bdd);
 $uss = getListeUs($bdd);
 
 if(!empty($_POST['valider'])){
-    $requete = "SELECT * FROM Imputation";
+    $requete = "SELECT * FROM Imputation2";
     if(!empty($_POST['lot']) || !empty($_POST['us']) || !empty($_POST['sprint']) || !empty($_POST['semaine']) || !empty($_POST['jour']) || !empty($_POST['metier']) || !empty($_POST['membre'])):
         $requete .= " WHERE ";
         $index = 0;
@@ -27,7 +27,7 @@ if(!empty($_POST['valider'])){
         if(!empty($_POST['lot'])):
             $lotSave = $_POST['lot'];
             if($index == 1) $requete .= " AND ";
-            $requete .= "id_us IN (SELECT id FROM User_Story WHERE id_lot =" . $_POST['lot'] . ")";
+            $requete .= "id_us IN (SELECT id FROM User_Story2 WHERE id_lot =" . $_POST['lot'] . ")";
             $index = 1;
         endif;
 

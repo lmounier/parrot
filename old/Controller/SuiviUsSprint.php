@@ -11,7 +11,7 @@ $sprints = $bdd->getData($requete)->fetchAll();
 $nomListes = array();
 foreach ($sprints as $sprint) {
     $nomListe = "listeUsSprint" . $sprint['id'];
-    $requete = "SELECT us.libelle, us.pc, us.id, l.libelle as lot FROM User_Story us LEFT JOIN Lot l ON us.id_lot = l.id WHERE us.id_sprint = " . $sprint['id'];
+    $requete = "SELECT us.libelle, us.pc, us.id, l.libelle as lot FROM User_Story2 us LEFT JOIN Lot l ON us.id_lot = l.id WHERE us.id_sprint = " . $sprint['id'];
     $$nomListe = $bdd->getData($requete)->fetchAll();
     array_push($nomListes, $nomListe);
 }
@@ -28,7 +28,7 @@ foreach($nomListes as $nomLi) {
         $lot = $us['lot'];
         $nomListe = "listeImputationsUs" . $us['id'];
         array_push($listeListes, $nomListe);
-        $requete = "SELECT i.heure, i.minute, i.raf, us.pc, us.libelle FROM Imputation i LEFT JOIN User_Story us ON i.id_us = us.id WHERE i.id_us = " . $us['id'] . " ORDER BY i.id DESC";
+        $requete = "SELECT i.heure, i.minute, i.raf, us.pc, us.libelle FROM Imputation2 i LEFT JOIN User_Story2 us ON i.id_us = us.id WHERE i.id_us = " . $us['id'] . " ORDER BY i.id DESC";
         $$nomListe = $bdd->getData($requete)->fetchAll();
 
         if(count($$nomListe) == 0 ) {
